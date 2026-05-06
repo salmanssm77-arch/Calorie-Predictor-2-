@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AI Fitness & Calorie Tracker</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>FitAI Ultimate Fitness Dashboard</title>
 
 <style>
 
@@ -20,32 +17,40 @@
 body{
     font-family: Arial, sans-serif;
     background:
-    radial-gradient(circle at top left,#1f4d68,#0f172a 35%),
-    radial-gradient(circle at bottom right,#1b4332,#081018 45%);
+    radial-gradient(circle at top,#1e293b,#020617 60%);
     color:white;
-    min-height:100vh;
     overflow-x:hidden;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#00ffae;
+    border-radius:10px;
 }
 
 /* NAVBAR */
 
 nav{
     width:100%;
-    padding:20px 8%;
+    padding:20px 7%;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    backdrop-filter: blur(10px);
     position:sticky;
     top:0;
     z-index:1000;
-    background:rgba(0,0,0,0.2);
+    backdrop-filter: blur(12px);
+    background:rgba(0,0,0,0.25);
 }
 
 .logo{
-    font-size:28px;
+    font-size:32px;
     font-weight:bold;
-    letter-spacing:1px;
 }
 
 .logo span{
@@ -70,39 +75,38 @@ nav ul li:hover{
 /* HERO */
 
 .hero{
-    width:100%;
-    padding:70px 8%;
+    padding:70px 7%;
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:40px;
     align-items:center;
+    gap:50px;
 }
 
 .hero-text h1{
-    font-size:58px;
+    font-size:65px;
     line-height:1.1;
     margin-bottom:20px;
 }
 
-.hero-text h1 span{
+.hero-text span{
     color:#00ffae;
 }
 
 .hero-text p{
-    color:#d1d5db;
-    line-height:1.7;
+    color:#cbd5e1;
+    line-height:1.8;
     margin-bottom:30px;
 }
 
-.hero-btns{
+.hero-buttons{
     display:flex;
     gap:15px;
 }
 
 .btn{
-    padding:14px 24px;
+    padding:14px 28px;
     border:none;
-    border-radius:12px;
+    border-radius:14px;
     cursor:pointer;
     font-weight:bold;
     transition:0.3s;
@@ -114,13 +118,13 @@ nav ul li:hover{
 }
 
 .primary:hover{
-    transform:translateY(-3px);
+    transform:translateY(-4px);
 }
 
 .secondary{
     background:rgba(255,255,255,0.08);
     color:white;
-    border:1px solid rgba(255,255,255,0.15);
+    border:1px solid rgba(255,255,255,0.1);
 }
 
 .secondary:hover{
@@ -130,23 +134,29 @@ nav ul li:hover{
 /* GLASS CARD */
 
 .glass{
-    background:rgba(255,255,255,0.07);
-    border:1px solid rgba(255,255,255,0.08);
+    background:rgba(255,255,255,0.06);
     backdrop-filter: blur(15px);
-    border-radius:24px;
-    box-shadow:0 0 30px rgba(0,0,0,0.35);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:25px;
+    box-shadow:0 0 30px rgba(0,0,0,0.4);
 }
 
-/* FORM SECTION */
+/* FITNESS FORM */
 
-.predictor{
-    padding:25px;
+.dashboard{
+    padding:30px;
 }
 
-.predictor h2{
-    margin-bottom:20px;
+.dashboard h2{
     text-align:center;
-    font-size:28px;
+    margin-bottom:25px;
+    font-size:32px;
+}
+
+.grid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
 }
 
 .input-group{
@@ -156,37 +166,30 @@ nav ul li:hover{
 label{
     display:block;
     margin-bottom:8px;
-    color:#e5e7eb;
+    color:#e2e8f0;
 }
 
 input,select{
     width:100%;
     padding:14px;
     border:none;
-    outline:none;
-    border-radius:12px;
+    border-radius:14px;
     background:rgba(255,255,255,0.08);
     color:white;
-    font-size:15px;
+    outline:none;
 }
 
 input::placeholder{
-    color:#d1d5db;
-}
-
-.grid-2{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
+    color:#cbd5e1;
 }
 
 .calculate-btn{
     width:100%;
-    margin-top:10px;
-    padding:15px;
+    padding:16px;
     border:none;
     border-radius:14px;
-    background:linear-gradient(135deg,#00ffae,#00c3ff);
+    margin-top:10px;
+    background:linear-gradient(135deg,#00ffae,#00b4ff);
     color:black;
     font-size:17px;
     font-weight:bold;
@@ -198,71 +201,69 @@ input::placeholder{
     transform:scale(1.02);
 }
 
-/* RESULT */
+/* RESULT SECTION */
 
-.result{
-    margin-top:25px;
+.results{
     display:none;
+    margin-top:25px;
 }
 
 .result-card{
     padding:20px;
+    margin-bottom:18px;
     border-radius:20px;
-    margin-bottom:15px;
-    background:rgba(255,255,255,0.06);
+    background:rgba(255,255,255,0.05);
 }
 
 .result-card h3{
-    margin-bottom:10px;
     color:#00ffae;
+    margin-bottom:10px;
 }
 
-.big-number{
+.big{
     font-size:42px;
     font-weight:bold;
 }
 
 .small{
     color:#cbd5e1;
-    line-height:1.6;
+    line-height:1.7;
 }
 
-/* STATS SECTION */
+/* PROGRESS BAR */
 
-.stats{
-    padding:30px 8%;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
+.progress-container{
+    width:100%;
+    height:20px;
+    background:rgba(255,255,255,0.08);
+    border-radius:30px;
+    overflow:hidden;
+    margin-top:15px;
 }
 
-.stat-box{
-    padding:25px;
-    text-align:center;
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#00ffae,#00b4ff);
+    transition:1s;
 }
 
-.stat-box h2{
-    color:#00ffae;
-    margin-bottom:10px;
-    font-size:40px;
-}
+/* FEATURE SECTION */
 
-/* FEATURES */
-
-.features{
-    padding:50px 8%;
+.section{
+    padding:70px 7%;
 }
 
 .section-title{
     text-align:center;
-    margin-bottom:40px;
+    margin-bottom:45px;
 }
 
 .section-title h1{
-    font-size:42px;
+    font-size:48px;
 }
 
-.feature-grid{
+.features{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:25px;
@@ -274,7 +275,7 @@ input::placeholder{
 }
 
 .feature-card:hover{
-    transform:translateY(-5px);
+    transform:translateY(-6px);
 }
 
 .feature-card h3{
@@ -282,24 +283,41 @@ input::placeholder{
     color:#00ffae;
 }
 
+/* WORKOUT PLANS */
+
+.workout-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
+
+.workout-card{
+    padding:25px;
+}
+
+.workout-card h2{
+    color:#00ffae;
+    margin-bottom:15px;
+}
+
 /* FOOTER */
 
 footer{
     text-align:center;
-    padding:30px;
+    padding:40px;
     color:#cbd5e1;
 }
 
 /* MOBILE */
 
-@media(max-width:900px){
+@media(max-width:950px){
 
 .hero{
     grid-template-columns:1fr;
 }
 
 .hero-text h1{
-    font-size:42px;
+    font-size:46px;
 }
 
 nav ul{
@@ -316,15 +334,19 @@ nav ul{
 <!-- NAVBAR -->
 
 <nav>
-    <div class="logo">Fit<span>AI</span></div>
 
-    <ul>
-        <li>Home</li>
-        <li>Calculator</li>
-        <li>Fitness</li>
-        <li>Nutrition</li>
-        <li>About</li>
-    </ul>
+<div class="logo">
+Fit<span>AI</span>
+</div>
+
+<ul>
+<li>Home</li>
+<li>Dashboard</li>
+<li>Workouts</li>
+<li>Nutrition</li>
+<li>Contact</li>
+</ul>
+
 </nav>
 
 <!-- HERO -->
@@ -333,316 +355,482 @@ nav ul{
 
 <div class="hero-text">
 
-    <h1>
-        Smart AI Based
-        <span>Calorie Tracker</span>
-    </h1>
+<h1>
+Your Ultimate
+<span>AI Fitness</span>
+Dashboard
+</h1>
 
-    <p>
-        Track calories burned, calculate BMI,
-        estimate protein intake, water intake,
-        and improve your fitness using smart
-        body analytics.
-    </p>
+<p>
+Track calories burned, BMI, body health,
+water intake, protein intake, metabolism,
+fitness score, workout intensity and more —
+all in one modern AI-powered dashboard.
+</p>
 
-    <div class="hero-btns">
-        <button class="btn primary">Get Started</button>
-        <button class="btn secondary">Learn More</button>
-    </div>
+<div class="hero-buttons">
 
-</div>
+<button class="btn primary">
+Start Tracking
+</button>
 
-<!-- CALCULATOR -->
-
-<div class="glass predictor">
-
-    <h2>🔥 Fitness Calculator</h2>
-
-    <div class="grid-2">
-
-        <div class="input-group">
-            <label>Age</label>
-            <input type="number" id="age" placeholder="Enter age">
-        </div>
-
-        <div class="input-group">
-            <label>Weight (kg)</label>
-            <input type="number" id="weight" placeholder="Enter weight">
-        </div>
-
-    </div>
-
-    <div class="grid-2">
-
-        <div class="input-group">
-            <label>Height (cm)</label>
-            <input type="number" id="height" placeholder="Enter height">
-        </div>
-
-        <div class="input-group">
-            <label>Heart Rate</label>
-            <input type="number" id="hr" placeholder="Heart rate">
-        </div>
-
-    </div>
-
-    <div class="grid-2">
-
-        <div class="input-group">
-            <label>Workout Duration</label>
-            <input type="number" id="duration" placeholder="Minutes">
-        </div>
-
-        <div class="input-group">
-            <label>Gender</label>
-
-            <select id="gender">
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-            </select>
-        </div>
-
-    </div>
-
-    <div class="input-group">
-
-        <label>Workout Intensity</label>
-
-        <select id="activity">
-            <option value="5">Light Exercise</option>
-            <option value="8">Moderate Workout</option>
-            <option value="10">Intense Workout</option>
-            <option value="12">Athlete Level</option>
-        </select>
-
-    </div>
-
-    <button class="calculate-btn" onclick="calculateFitness()">
-        Calculate Fitness Stats
-    </button>
-
-    <!-- RESULT -->
-
-    <div class="result" id="result">
-
-        <div class="result-card">
-            <h3>🔥 Calories Burned</h3>
-            <div class="big-number" id="caloriesResult">0</div>
-        </div>
-
-        <div class="result-card">
-            <h3>📊 BMI Status</h3>
-            <div class="big-number" id="bmiResult">0</div>
-            <p class="small" id="bmiText"></p>
-        </div>
-
-        <div class="result-card">
-            <h3>💪 Protein Recommendation</h3>
-            <p class="small" id="proteinResult"></p>
-        </div>
-
-        <div class="result-card">
-            <h3>💧 Daily Water Intake</h3>
-            <p class="small" id="waterResult"></p>
-        </div>
-
-        <div class="result-card">
-            <h3>🧠 Fitness Advice</h3>
-            <p class="small" id="tips"></p>
-        </div>
-
-    </div>
+<button class="btn secondary">
+Explore Features
+</button>
 
 </div>
 
-</section>
-
-<!-- STATS -->
-
-<section class="stats">
-
-<div class="glass stat-box">
-    <h2>98%</h2>
-    <p>User Satisfaction</p>
 </div>
 
-<div class="glass stat-box">
-    <h2>24/7</h2>
-    <p>Fitness Tracking</p>
+<!-- DASHBOARD -->
+
+<div class="glass dashboard">
+
+<h2>
+🔥 Fitness Calculator
+</h2>
+
+<div class="grid-2">
+
+<div class="input-group">
+<label>Age</label>
+<input type="number" id="age" placeholder="Enter age">
 </div>
 
-<div class="glass stat-box">
-    <h2>AI</h2>
-    <p>Smart Predictions</p>
+<div class="input-group">
+<label>Weight (kg)</label>
+<input type="number" id="weight" placeholder="Enter weight">
 </div>
 
-<div class="glass stat-box">
-    <h2>100+</h2>
-    <p>Workout Combinations</p>
+</div>
+
+<div class="grid-2">
+
+<div class="input-group">
+<label>Height (cm)</label>
+<input type="number" id="height" placeholder="Enter height">
+</div>
+
+<div class="input-group">
+<label>Heart Rate</label>
+<input type="number" id="hr" placeholder="Heart rate">
+</div>
+
+</div>
+
+<div class="grid-2">
+
+<div class="input-group">
+<label>Workout Duration</label>
+<input type="number" id="duration" placeholder="Minutes">
+</div>
+
+<div class="input-group">
+<label>Gender</label>
+
+<select id="gender">
+<option value="male">Male</option>
+<option value="female">Female</option>
+</select>
+
+</div>
+
+</div>
+
+<div class="grid-2">
+
+<div class="input-group">
+<label>Workout Intensity</label>
+
+<select id="activity">
+<option value="5">Light Exercise</option>
+<option value="8">Moderate Workout</option>
+<option value="10">Intense Workout</option>
+<option value="12">Athlete Level</option>
+</select>
+
+</div>
+
+<div class="input-group">
+<label>Fitness Goal</label>
+
+<select id="goal">
+<option value="cut">Fat Loss</option>
+<option value="maintain">Maintain</option>
+<option value="bulk">Muscle Gain</option>
+</select>
+
+</div>
+
+</div>
+
+<button class="calculate-btn" onclick="calculateAll()">
+Calculate Full Fitness Report
+</button>
+
+<!-- RESULTS -->
+
+<div class="results" id="results">
+
+<div class="result-card">
+<h3>🔥 Calories Burned</h3>
+<div class="big" id="calories">0</div>
+</div>
+
+<div class="result-card">
+<h3>📊 BMI & Body Status</h3>
+<div class="big" id="bmi">0</div>
+<p class="small" id="bmiText"></p>
+</div>
+
+<div class="result-card">
+<h3>⚡ Daily Metabolism</h3>
+<p class="small" id="metabolism"></p>
+</div>
+
+<div class="result-card">
+<h3>💪 Protein Intake</h3>
+<p class="small" id="protein"></p>
+</div>
+
+<div class="result-card">
+<h3>💧 Water Intake</h3>
+<p class="small" id="water"></p>
+</div>
+
+<div class="result-card">
+<h3>🏋️ Workout Recommendation</h3>
+<p class="small" id="workout"></p>
+</div>
+
+<div class="result-card">
+<h3>🧠 AI Health Tips</h3>
+<p class="small" id="tips"></p>
+</div>
+
+<div class="result-card">
+<h3>📈 Fitness Score</h3>
+
+<div class="progress-container">
+<div class="progress-bar" id="progress"></div>
+</div>
+
+<p class="small" id="scoreText"></p>
+
+</div>
+
+</div>
+
 </div>
 
 </section>
 
 <!-- FEATURES -->
 
-<section class="features">
+<section class="section">
 
 <div class="section-title">
-    <h1>Why Choose FitAI?</h1>
+<h1>Powerful Features</h1>
 </div>
 
-<div class="feature-grid">
+<div class="features">
 
 <div class="glass feature-card">
-    <h3>🔥 Smart Calorie Analysis</h3>
-    <p>
-        Calculate calories burned based on body metrics,
-        duration and exercise intensity.
-    </p>
-</div>
-
-<div class="glass feature-card">
-    <h3>📊 BMI & Health Tracking</h3>
-    <p>
-        Get instant BMI analysis and body health status.
-    </p>
+<h3>🔥 AI Calorie Prediction</h3>
+<p>
+Estimate calories using workout intensity,
+heart rate and body metrics.
+</p>
 </div>
 
 <div class="glass feature-card">
-    <h3>💪 Fitness Recommendations</h3>
-    <p>
-        Receive workout and nutrition advice instantly.
-    </p>
+<h3>📊 BMI Analytics</h3>
+<p>
+Analyze body composition and health status instantly.
+</p>
 </div>
 
 <div class="glass feature-card">
-    <h3>⚡ Fast & Responsive</h3>
-    <p>
-        Optimized for desktop, tablet and mobile devices.
-    </p>
+<h3>⚡ Metabolism Tracking</h3>
+<p>
+Calculate estimated BMR and calorie maintenance.
+</p>
+</div>
+
+<div class="glass feature-card">
+<h3>💧 Smart Hydration</h3>
+<p>
+Get personalized water intake recommendations.
+</p>
+</div>
+
+<div class="glass feature-card">
+<h3>🏋️ Workout Suggestions</h3>
+<p>
+Receive custom exercise recommendations instantly.
+</p>
+</div>
+
+<div class="glass feature-card">
+<h3>📱 Fully Responsive</h3>
+<p>
+Works perfectly on mobile, tablet and desktop.
+</p>
 </div>
 
 </div>
 
 </section>
 
+<!-- WORKOUT PLANS -->
+
+<section class="section">
+
+<div class="section-title">
+<h1>Workout Plans</h1>
+</div>
+
+<div class="workout-grid">
+
+<div class="glass workout-card">
+<h2>🔥 Fat Loss</h2>
+<p>
+• 30–45 min cardio<br>
+• High protein diet<br>
+• Calorie deficit<br>
+• 8k–10k daily steps
+</p>
+</div>
+
+<div class="glass workout-card">
+<h2>💪 Muscle Gain</h2>
+<p>
+• Heavy strength training<br>
+• Progressive overload<br>
+• High protein intake<br>
+• Proper sleep & recovery
+</p>
+</div>
+
+<div class="glass workout-card">
+<h2>⚡ Athlete Training</h2>
+<p>
+• Explosive workouts<br>
+• HIIT training<br>
+• Advanced endurance<br>
+• Recovery optimization
+</p>
+</div>
+
+<div class="glass workout-card">
+<h2>⚡ Strength Training</h2>
+<p>
+• Increases muscle mass<br>
+• Improve Bone Density<br>
+• Boosts Metabolism<br>
+• Helps in Fatloss
+<p>
+<div>
+
+
+</section>
+
 <footer>
-    © 2026 FitAI • Advanced Fitness Analytics Platform
+© 2026 FitAI • Ultimate Fitness Dashboard
 </footer>
 
 <script>
 
-function calculateFitness(){
+function calculateAll(){
 
-    let age = parseInt(document.getElementById("age").value);
-    let weight = parseFloat(document.getElementById("weight").value);
-    let height = parseFloat(document.getElementById("height").value);
-    let hr = parseInt(document.getElementById("hr").value);
-    let duration = parseInt(document.getElementById("duration").value);
-    let gender = document.getElementById("gender").value;
-    let activity = parseFloat(document.getElementById("activity").value);
+let age = parseInt(document.getElementById("age").value);
+let weight = parseFloat(document.getElementById("weight").value);
+let height = parseFloat(document.getElementById("height").value);
+let hr = parseInt(document.getElementById("hr").value);
+let duration = parseInt(document.getElementById("duration").value);
+let gender = document.getElementById("gender").value;
+let activity = parseFloat(document.getElementById("activity").value);
+let goal = document.getElementById("goal").value;
 
-    if(!age || !weight || !height || !hr || !duration){
-        alert("Please fill all fields.");
-        return;
-    }
+if(!age || !weight || !height || !hr || !duration){
 
-    let calories;
+alert("Please fill all fields");
+return;
 
-    if(gender === "male"){
+}
 
-        calories =
-        ((age * 0.2017)
-        - (weight * 0.09036)
-        + (hr * 0.6309)
-        - 55.0969)
-        * duration / 4.184;
+/* Calories */
 
-    }
+let calories;
 
-    else{
+if(gender === "male"){
 
-        calories =
-        ((age * 0.074)
-        - (weight * 0.05741)
-        + (hr * 0.4472)
-        - 20.4022)
-        * duration / 4.184;
+calories =
+((age * 0.2017)
+- (weight * 0.09036)
++ (hr * 0.6309)
+- 55.0969)
+* duration / 4.184;
 
-    }
+}
 
-    calories = calories * (activity / 8);
+else{
 
-    // BMI
+calories =
+((age * 0.074)
+- (weight * 0.05741)
++ (hr * 0.4472)
+- 20.4022)
+* duration / 4.184;
 
-    let bmi =
-    weight /
-    ((height / 100) * (height / 100));
+}
 
-    let bmiStatus = "";
-    let bmiAdvice = "";
+calories = calories * (activity / 8);
 
-    if(bmi < 18.5){
+/* BMI */
 
-        bmiStatus = "Underweight";
-        bmiAdvice = "Increase calorie intake and strength training.";
+let bmi =
+weight /
+((height / 100) * (height / 100));
 
-    }
+let bmiStatus = "";
+let bmiAdvice = "";
+let score = 0;
 
-    else if(bmi < 25){
+if(bmi < 18.5){
 
-        bmiStatus = "Normal";
-        bmiAdvice = "Great shape! Maintain your routine.";
+bmiStatus = "Underweight";
+bmiAdvice = "Increase nutrition & strength training.";
+score = 45;
 
-    }
+}
 
-    else if(bmi < 30){
+else if(bmi < 25){
 
-        bmiStatus = "Overweight";
-        bmiAdvice = "Add more cardio and improve diet quality.";
+bmiStatus = "Normal";
+bmiAdvice = "Excellent body composition.";
+score = 90;
 
-    }
+}
 
-    else{
+else if(bmi < 30){
 
-        bmiStatus = "Obese";
-        bmiAdvice = "Focus on gradual fat loss and consistency.";
+bmiStatus = "Overweight";
+bmiAdvice = "Focus on cardio and calorie control.";
+score = 65;
 
-    }
+}
 
-    // Protein
+else{
 
-    let protein = (weight * 1.8).toFixed(0);
+bmiStatus = "Obese";
+bmiAdvice = "Improve activity and nutrition consistency.";
+score = 35;
 
-    // Water
+}
 
-    let water = (weight * 0.035).toFixed(1);
+/* BMR */
 
-    // Show results
+let bmr;
 
-    document.getElementById("result").style.display = "block";
+if(gender === "male"){
 
-    document.getElementById("caloriesResult").innerHTML =
-    Math.round(calories) + " kcal";
+bmr =
+10 * weight +
+6.25 * height -
+5 * age + 5;
 
-    document.getElementById("bmiResult").innerHTML =
-    bmi.toFixed(1);
+}
 
-    document.getElementById("bmiText").innerHTML =
-    bmiStatus + " • " + bmiAdvice;
+else{
 
-    document.getElementById("proteinResult").innerHTML =
-    "Recommended protein intake: <b>" +
-    protein +
-    "g/day</b>";
+bmr =
+10 * weight +
+6.25 * height -
+5 * age - 161;
 
-    document.getElementById("waterResult").innerHTML =
-    "Recommended water intake: <b>" +
-    water +
-    " Liters/day</b>";
+}
 
-    document.getElementById("tips").innerHTML =
-    "Train consistently, sleep 7–8 hours, maintain protein intake and stay hydrated for better recovery and muscle growth.";
+/* Protein */
+
+let protein;
+
+if(goal === "bulk") protein = weight * 2.2;
+else if(goal === "cut") protein = weight * 1.8;
+else protein = weight * 1.6;
+
+/* Water */
+
+let water = weight * 0.035;
+
+/* Workout */
+
+let workoutText = "";
+
+if(goal === "bulk"){
+
+workoutText =
+"Focus on heavy compound lifts, progressive overload and recovery.";
+
+}
+
+else if(goal === "cut"){
+
+workoutText =
+"Add cardio, maintain protein intake and stay in calorie deficit.";
+
+}
+
+else{
+
+workoutText =
+"Maintain balanced workouts with strength and cardio.";
+
+}
+
+/* Tips */
+
+let tips =
+"Sleep 7–8 hours, stay hydrated, train consistently and maintain high protein intake for best recovery.";
+
+/* SHOW RESULTS */
+
+document.getElementById("results").style.display = "block";
+
+document.getElementById("calories").innerHTML =
+Math.round(calories) + " kcal";
+
+document.getElementById("bmi").innerHTML =
+bmi.toFixed(1);
+
+document.getElementById("bmiText").innerHTML =
+bmiStatus + " • " + bmiAdvice;
+
+document.getElementById("metabolism").innerHTML =
+"Estimated BMR: <b>" +
+Math.round(bmr) +
+" kcal/day</b>";
+document.getElementById("protein").innerHTML =
+"Recommended protein intake: <b>" +
+Math.round(protein) +
+"g/day</b>";
+
+document.getElementById("water").innerHTML =
+"Recommended water intake: <b>" +
+water.toFixed(1) +
+" liters/day</b>";
+
+document.getElementById("workout").innerHTML =
+workoutText;
+
+document.getElementById("tips").innerHTML =
+tips;
+
+document.getElementById("progress").style.width =
+score + "%";
+
+document.getElementById("scoreText").innerHTML =
+"Fitness Score: <b>" + score + "/100</b>";
 
 }
 
