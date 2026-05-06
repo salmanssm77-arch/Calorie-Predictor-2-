@@ -632,7 +632,6 @@ Works perfectly on mobile, tablet and desktop.
 <p>
 <div>
 
-
 </section>
 
 <footer>
